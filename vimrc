@@ -28,8 +28,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'godlygeek/tabular'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle 'garbas/vim-snipmate'
-Bundle "honza/snipmate-snippets"
 Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Townk/vim-autoclose'
