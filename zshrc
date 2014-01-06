@@ -1,5 +1,3 @@
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 setopt auto_cd
 setopt correct
 autoload -U compinit && compinit
@@ -161,4 +159,5 @@ $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 
 setprompt
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
