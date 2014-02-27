@@ -220,3 +220,5 @@ autocmd FileType coffee   set commentstring=#\ %s
 autocmd FileType c        set commentstring=//\ %s
 autocmd FileType io       set commentstring=//\ %s
 
+set undofile
+set undodir=$HOME/.vim/undo
