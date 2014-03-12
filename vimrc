@@ -222,3 +222,4 @@ autocmd FileType io       set commentstring=//\ %s
 
 set undofile
 set undodir=$HOME/.vim/undo
+autocmd FileType make setlocal noexpandtab

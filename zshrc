@@ -161,3 +161,5 @@ setprompt
 
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
