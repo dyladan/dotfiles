@@ -1,0 +1,2 @@
+xinput --set-prop 12 "Synaptics Finger" 10 20 50
+xinput --set-prop 12 "Synaptics Two-Finger Scrolling" 1 1
