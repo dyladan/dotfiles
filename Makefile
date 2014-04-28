@@ -25,6 +25,7 @@ chruby:
 	tar -xzvf chruby-0.3.8.tar.gz
 	cd chruby-0.3.8 && sudo make install
 	rm -rf chruby-0.3.8.tar.gz chruby-0.3.8
+	chruby ruby
 
 .PHONY: ruby-install
 ruby-install:
