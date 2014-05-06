@@ -1,7 +1,7 @@
 PROGS = htop git zsh tmux vim
 
 .PHONY: all
-all: sysdeps dotfiles vundle chruby ruby-install
+all: sysdeps dotfiles vundle chruby ruby-install playground
 
 .PHONY: sysdeps
 sysdeps:
@@ -34,6 +34,19 @@ ruby-install:
 	cd ruby-install-0.4.2 && sudo make install
 	rm -rf ruby-install-0.4.2 ruby-install-0.4.2.tar.gz
 	ruby-install ruby
+
+.PHONY: playground
+playground: sysdeps
+	mkdir $(HOME)/playground
+	git clone git@github.com:dyladan/ABC $(HOME)/playground/ABC
+	git clone git@github.com:dyladan/alan $(HOME)/playground/alan
+	git clone git@github.com:dyladan/bookie-ruby $(HOME)/playground/bookie-ruby
+	git clone git@github.com:dyladan/euler $(HOME)/playground/euler
+	git clone git@github.com:scott-linder/pios $(HOME)/playground/pios
+	git clone git@github.com:dyladan/bookie $(HOME)/playground/bookie
+	git clone git@github.com:dyladan/ruby-irc $(HOME)/playground/ruby-irc
+	git clone git@github.com:dyladan/diy-lisp $(HOME)/playground/diy-lisp
+	cd $(HOME)/playground/diy-lisp && git checkout diylisp
 
 clean:
 	rm ~/.vim ~/.vimrc ~/.tmux.conf ~/.zshrc
