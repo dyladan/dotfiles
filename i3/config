@@ -165,9 +165,11 @@ bar {
 
 # for_window [title="Google Chrome$"] border none
 new_window none
-bindsym $mod+y exec "x-terminal-emulator -e ssh -t dickweed@yakko.cs.wmich.edu tmux a -d"
+bindsym $mod+y exec "x-terminal-emulator -e ssh -t dickweed@yakko.cs.wmich.edu"
 bindsym $mod+c exec "x-terminal-emulator -e vim ~/.i3/config && i3-msg reload"
 bindsym $mod+h exec "x-terminal-emulator -e htop"
 bindsym $mod+b exec "google-chrome"
 exec --no-startup-id "synapse -s"
+exec --no-startup-id nm-applet
+exec --no-startup-id gnome-sound-applet
 bindsym $mod+F10 exec --no-startup-id pavucontrol
