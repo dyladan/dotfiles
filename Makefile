@@ -39,6 +39,7 @@ ruby-install:
 playground: sysdeps
 	mkdir $(HOME)/playground
 	git clone git@github.com:dyladan/ABC $(HOME)/playground/ABC
+	git clone git@github.com:dyladan/dyladan.me $(HOME)/playground/dyladan.me
 	git clone git@github.com:dyladan/alan $(HOME)/playground/alan
 	git clone git@github.com:dyladan/bookie-ruby $(HOME)/playground/bookie-ruby
 	git clone git@github.com:dyladan/euler $(HOME)/playground/euler
