@@ -1,11 +1,14 @@
 PROGS = htop git zsh tmux vim
 
-.PHONY: all
-all: sysdeps dotfiles vundle chruby ruby-install playground
+.PHONY: init
+init: sysdeps dotfiles vundle chruby ruby-install playground
 
 .PHONY: sysdeps
 sysdeps:
 	sudo apt-get install -y $(PROGS)
+
+.PHONY: ath9k
+	echo "options ath9k nohwcrypt=1 blink=1 btcoex_enable=1 bt_ant_diversity=1" | sudo tee /etc/modprobe.d/ath9k.conf
 
 .PHONY: dotfiles
 dotfiles:
@@ -13,6 +16,7 @@ dotfiles:
 	ln -s $(shell pwd)/tmux.conf ~/.tmux.conf
 	ln -s $(shell pwd)/vim ~/.vim
 	ln -s $(shell pwd)/vimrc ~/.vimrc
+	ln -s $(shell pwd)/i3 ~/.i3
 
 .PHONY: vundle
 vundle:
@@ -25,7 +29,6 @@ chruby:
 	tar -xzvf chruby-0.3.8.tar.gz
 	cd chruby-0.3.8 && sudo make install
 	rm -rf chruby-0.3.8.tar.gz chruby-0.3.8
-	chruby ruby
 
 .PHONY: ruby-install
 ruby-install:
@@ -36,7 +39,7 @@ ruby-install:
 	ruby-install ruby
 
 .PHONY: playground
-playground: sysdeps
+playground:
 	mkdir $(HOME)/playground
 	git clone git@github.com:dyladan/ABC $(HOME)/playground/ABC
 	git clone git@github.com:dyladan/dyladan.me $(HOME)/playground/dyladan.me
