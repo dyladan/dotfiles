@@ -10,6 +10,11 @@ SAVEHIST=1000 # thr maximum number of commands to save I guess
 alias -r yakko="ssh -L 6667:dot:6667 dickweed@yakko.cs.wmich.edu"
 alias -r skynet="ssh danny@skynet.dyladan.me"
 alias -r sshpi="ssh danny@192.168.1.102"
+alias -r ruby-install-update="(cd ~/.rubyinstall && git pull && sudo make install)"
+alias -r h="dirs -v"
+
+setopt autopushd pushdminus pushdsilent pushdtohome
+export DIRSTACKSIZE=15
 
 fpath=(~/.zsh/completion $fpath)
 
@@ -36,15 +41,6 @@ function precmd {
     PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
     fi
 
-
-    ###
-    # Get APM info.
-
-    if which ibam > /dev/null; then
-    PR_APM_RESULT=`ibam --percentbattery`
-    elif which apm > /dev/null; then
-    PR_APM_RESULT=`apm`
-    fi
 }
 
 
@@ -162,4 +158,13 @@ setprompt
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
+export GOROOT=$HOME/.go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/bin
+
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+#xinput --set-prop "Cypress APA Trackpad (cyapa)" "Synaptics Finger" 10 20 50
+#xinput --set-prop "Cypress APA Trackpad (cyapa)" "Synaptics Two-Finger Scrolling" 1 1

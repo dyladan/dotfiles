@@ -36,8 +36,8 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -165,7 +165,7 @@ bar {
 
 # for_window [title="Google Chrome$"] border none
 new_window none
-bindsym $mod+y exec "x-terminal-emulator -e ssh -t dickweed@yakko.cs.wmich.edu"
+bindsym $mod+y exec "x-terminal-emulator -e ssh -t dickweed@yakko.cs.wmich.edu tmux a -d"
 bindsym $mod+c exec "x-terminal-emulator -e vim ~/.i3/config && i3-msg reload"
 bindsym $mod+h exec "x-terminal-emulator -e htop"
 bindsym $mod+b exec "google-chrome"
@@ -173,3 +173,5 @@ exec --no-startup-id "synapse -s"
 exec --no-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
 bindsym $mod+F10 exec --no-startup-id pavucontrol
+bindsym $mod+p exec "scrot -z -u"
+bindsym $mod+n exec "nemo --no-desktop"

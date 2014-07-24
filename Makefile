@@ -50,6 +50,7 @@ playground:
 	git clone git@github.com:dyladan/bookie $(HOME)/playground/bookie
 	git clone git@github.com:dyladan/ruby-irc $(HOME)/playground/ruby-irc
 	git clone git@github.com:dyladan/diy-lisp $(HOME)/playground/diy-lisp
+	git clone git@github.com:dyladan/cs2.git $(HOME)/playground/CS2
 	cd $(HOME)/playground/diy-lisp && git checkout diylisp
 
 clean:
