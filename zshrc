@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/danny/.gem/ruby/2.1.2/bin:/home/danny/.rubies/ruby-2.1.2/lib/ruby/gems/2.1.0/bin:/home/danny/.rubies/ruby-2.1.2/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/danny/.go/bin:/home/danny/go/bin:/home/danny/bin:/home/danny/.go/bin:/home/danny/go/bin:/home/danny/bin"
+export PATH="/usr/local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
