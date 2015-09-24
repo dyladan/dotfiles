@@ -19,6 +19,12 @@ imap JK jk
 imap Jk jk
 imap jK jk
 
+" typing kj leaves insert mode
+imap kj <esc>
+imap KJ kj
+imap Kj kj
+imap kJ kj
+
 " use 4 spaces for indentaion
 " autoindent indents to previous line
 " tabstop sets number of spaces in a tab
@@ -59,4 +65,8 @@ cmap w!! w !sudo tee % >/dev/null
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+" Do not expand tabs to spaces in makefiles
 autocmd FileType make setlocal noexpandtab
+
+" Automatic indenting based on file type
+filetype plugin indent on
