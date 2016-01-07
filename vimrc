@@ -19,6 +19,12 @@ imap JK jk
 imap Jk jk
 imap jK jk
 
+" typing kj leaves insert mode
+imap kj <esc>
+imap KJ kj
+imap Kj kj
+imap kJ kj
+
 " use 4 spaces for indentaion
 " autoindent indents to previous line
 " tabstop sets number of spaces in a tab
@@ -62,4 +68,8 @@ set backspace=indent,eol,start
 " set markdown syntax for *.md files
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
+" Do not expand tabs to spaces in makefiles
 autocmd FileType make setlocal noexpandtab
+
+" Automatic indenting based on file type
+filetype plugin indent on
