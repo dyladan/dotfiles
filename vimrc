@@ -59,4 +59,7 @@ cmap w!! w !sudo tee % >/dev/null
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+" set markdown syntax for *.md files
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
 autocmd FileType make setlocal noexpandtab
