@@ -4,7 +4,7 @@ let mapleader = ","
 " toggles paste mode
 set pastetoggle=<leader>p
 
-" enable line numbers
+" enable line numbers,
 set number
 
 " set visual bell
@@ -19,13 +19,8 @@ imap JK jk
 imap Jk jk
 imap jK jk
 
-" typing kj leaves insert mode
-imap kj <esc>
-imap KJ kj
-imap Kj kj
-imap kJ kj
 
-" use 4 spaces for indentaion
+" use 4 spaces for indention
 " autoindent indents to previous line
 " tabstop sets number of spaces in a tab
 " shiftwidth controls how many columns text is indented with << and >>
@@ -70,3 +65,7 @@ autocmd FileType make setlocal noexpandtab
 
 " Automatic indenting based on file type
 filetype plugin indent on
+
+" set ; to :
+nnoremap ; :
+
