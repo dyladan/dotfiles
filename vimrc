@@ -72,3 +72,9 @@ filetype plugin indent on
 " set ; to :
 nnoremap ; :
 
+" vim-plug plugins
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/goyo.vim'
+
+call plug#end()
