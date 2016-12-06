@@ -70,6 +70,8 @@ export PATH="/usr/local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+export PAGER="less -S"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -78,5 +80,8 @@ export PATH="/usr/local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias vimconf="vim ~/.vimrc"
+
 
 unsetopt share_history
