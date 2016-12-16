@@ -1,6 +1,8 @@
 " sets , to leader key
 let mapleader = ","
 
+set nocompatible
+
 " remove all existing autocmds
 autocmd!
 
@@ -21,6 +23,8 @@ nnoremap <leader><leader> :!git status<cr>
 
 nnoremap <leader>s :split<cr>
 nnoremap <leader>vs :vsp<cr>
+
+nnoremap <leader>gi :!ghi<cr>
 
 " enable line numbers,
 set number
@@ -53,6 +57,7 @@ nnoremap <c-l> <c-w>l
 set expandtab autoindent tabstop=4 shiftwidth=4 softtabstop=4
 
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2
+autocmd FileType json setlocal ts=2 sw=2 sts=2
 autocmd FileType python setlocal ts=4 sw=4 sts=4
 autocmd FileType markdown setlocal ts=2 sw=2 sts=2
 autocmd FileType make setlocal noexpandtab
@@ -121,9 +126,11 @@ endif
 
 " Resize splits like a boss
 " http://flaviusim.com/blog/resizing-vim-window-splits-like-a-boss/
-set winheight=30
-set winwidth=30
+set winheight=5
 set winminheight=5
-set winminwidth=10
+let &winheight = &lines - 5
+set winwidth=40
+:silent! set winminwidth=40       " E36 Not enough room here
+let &winwidth = &columns - 40
 
 execute pathogen#infect('~/.vimplugins/{}')
