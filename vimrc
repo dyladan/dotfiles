@@ -15,14 +15,12 @@ set pastetoggle=<leader>p
 nnoremap <leader>rp :!python %<cr>
 nnoremap <leader>rj :!npm start<cr>
 
-nnoremap <leader>s :split<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>l :!eslint %<cr>
-nnoremap <leader>t :!npm test<cr>
-nnoremap <leader><leader> :!git status<cr>
+nnoremap <leader><leader> :!%:p<cr>
 
-nnoremap <leader>s :split<cr>
-nnoremap <leader>vs :vsp<cr>
+nnoremap <leader>s :split<cr><c-w>j
+nnoremap <leader>vs :vsp<cr><c-w>l
 
 nnoremap <leader>gi :!ghi<cr>
 
@@ -34,9 +32,9 @@ set vb
 
 " typing jk leaves insert mode, deletes all trailing spaces, and saves
 imap jk <esc>`^:%s/ \+$//eg<return>`^:w<return>
-imap JK jk
-imap Jk jk
-imap jK jk
+imap KJ jk
+imap Kj jk
+imap kJ jk
 
 " moving up and down moves by display lines rather than actual lines
 nnoremap j gj
@@ -60,11 +58,31 @@ autocmd FileType javascript setlocal ts=2 sw=2 sts=2
 autocmd FileType json setlocal ts=2 sw=2 sts=2
 autocmd FileType python setlocal ts=4 sw=4 sts=4
 autocmd FileType markdown setlocal ts=2 sw=2 sts=2
+autocmd FileType yaml setlocal ts=2 sw=2 sts=2
 autocmd FileType make setlocal noexpandtab
 
 " set markdown syntax for *.md files
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead .git/GHI_ISSUE set filetype=markdown
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+
+" Add formatting for jk on markdown files
+autocmd FileType markdown inoremap <buffer> JK <esc>`^gq}:%s/ \+$//eg<return>`^:w<return>
+
+function! s:auto_goyo()
+  if &ft == 'markdown'
+    Goyo 80
+  else
+    let bufnr = bufnr('%')
+    Goyo!
+    execute 'b '.bufnr
+  endif
+endfunction
+
+augroup goyo_markdown
+  autocmd!
+  autocmd BufNewFile,BufRead * call s:auto_goyo()
+augroup END
 
 " list makes whitespace characters visible
 " listchars determines what characters to use for whitespace
@@ -73,8 +91,7 @@ set listchars=tab:>-,trail:.,extends:#,nbsp:.
 
 " searching as you type the search string
 " smart case in searches
-set incsearch
-set smartcase
+set incsearch ignorecase smartcase
 
 " shows cursor position in the bottom right
 set ruler
@@ -126,11 +143,31 @@ endif
 
 " Resize splits like a boss
 " http://flaviusim.com/blog/resizing-vim-window-splits-like-a-boss/
-set winheight=5
-set winminheight=5
-let &winheight = &lines - 5
-set winwidth=40
-:silent! set winminwidth=40       " E36 Not enough room here
-let &winwidth = &columns - 40
+"set winheight=10
+"set winminheight=10
+"let &winheight = &lines - 10
+"set winwidth=40
+":silent! set winminwidth=40       " E36 Not enough room here
+"let &winwidth = &columns - 40
 
-execute pathogen#infect('~/.vimplugins/{}')
+set wildmenu
+
+set wildignore+=*/node_modules   " ignores node_modules
+set wildignore+=*/coverage   " ignores node_modules
+set wildignore+=**/*.app/**/*   " ignores node_modules
+
+" hilight lines longer than 100
+highlight OverLength ctermbg=black ctermfg=white guibg=#592929asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsdfasdfsdfasdisdi
+match OverLength /\%101v.\+/
+
+call plug#begin()
+
+Plug 'wincent/command-t'
+Plug 'tpope/vim-surround'
+Plug 'moll/vim-node'
+Plug 'airblade/vim-gitgutter'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/goyo.vim'
+
+call plug#end()
