@@ -2,6 +2,9 @@
 let mapleader = ","
 
 set nocompatible
+set nobackup
+set nowritebackup
+set noswapfile
 
 " remove all existing autocmds
 autocmd!
@@ -55,6 +58,7 @@ nnoremap <c-l> <c-w>l
 set expandtab autoindent tabstop=4 shiftwidth=4 softtabstop=4
 
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2
+autocmd FileType typescript setlocal ts=2 sw=2 sts=2
 autocmd FileType json setlocal ts=2 sw=2 sts=2
 autocmd FileType python setlocal ts=4 sw=4 sts=4
 autocmd FileType markdown setlocal ts=2 sw=2 sts=2
@@ -68,6 +72,19 @@ autocmd BufNewFile,BufRead *.ts set filetype=typescript
 
 " Add formatting for jk on markdown files
 autocmd FileType markdown inoremap <buffer> JK <esc>`^gq}:%s/ \+$//eg<return>`^:w<return>
+
+" syntastic eslint settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = 'eslint @%'
+let g:syntastic_javascript_eslint_exe = 'npx eslint @%'
 
 function! s:auto_goyo()
   if &ft == 'markdown'
@@ -139,6 +156,18 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
+if executable('rg')
+    "Use ripgrep over grep
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+    let g:rg_command = '
+                \ rg --column  --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+                \ -g "*.{js,jsonhp,md,styl,jade,html,configy,cpp,c,go,hs,rb,conf}"
+                \ -g "!{.git,node_modules,vendor}/*" '
+    command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+endif
+
+
 :command -nargs=1 InstallPlugin ! cd ~/.vimplugins && git clone <args>
 
 " Resize splits like a boss
@@ -169,5 +198,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/goyo.vim'
+Plug 'leafgarland/typescript-vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'vim-syntastic/syntastic'
 
 call plug#end()

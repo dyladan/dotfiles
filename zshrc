@@ -1,6 +1,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -106,3 +108,57 @@ export NVM_DIR="/Users/danny/.nvm"
 
 unsetopt share_history
 
+source $HOME/zsh-histdb/sqlite-history.zsh
+source $HOME/zsh-histdb/history-timer.zsh
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _start_timer
+add-zsh-hook precmd _stop_timer
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,Library}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="cd ~; bfs -type d -nohidden | sed 's~^\.~$HOME~'"
+# openinvim () {
+#     local f="$(__fsel)" # get a file from fzf/ripgrep
+#     f="$(echo $f | xargs)" # trim whitespace
+#     if [[ -z "$f" ]]; then # if file is empty (cancelled)
+#         zle redisplay
+#         return 0
+#     fi
+#     </dev/tty vim "$f" # tty hack to get vim to work
+#     zle redisplay
+# }
+# zle -N openinvim
+#bind -x '"\c-p": vim $(fzf);'
+#bindkey -e "^p" "vim $(fzf);"
+#bindkey "^p" openinvim
+
+# This is the same functionality as fzf's ctrl-t, except that the file or
+# directory selected is now automatically cd'ed or opened, respectively.
+
+fzf-open-file-or-dir() {
+  # local cmd="command find -L . \
+  #   \\( -path '*/\\.*' -o -fstype 'dev' -o -fstype 'proc' \\) -prune \
+  #   -o -type f -print \
+  #   -o -type d -print \
+  #   -o -type l -print 2> /dev/null | sed 1d | cut -b3-"
+  local cmd="$FZF_DEFAULT_COMMAND"
+  local out=$(eval $cmd | fzf-tmux --exit-0)
+
+  if [ -f "$out" ]; then
+    vim "$out" < /dev/tty
+  elif [ -d "$out" ]; then
+    cd "$out"
+    zle reset-prompt
+  fi
+}
+zle     -N   fzf-open-file-or-dir
+bindkey '^P' fzf-open-file-or-dir
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/sls.zsh
