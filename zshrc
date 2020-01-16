@@ -7,7 +7,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dandyla"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -47,7 +47,7 @@ ZSH_THEME="dandyla"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(rake archlinux python pip virtualenv git cp)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -56,86 +56,19 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=$PATH:$HOME/bin
 export PATH="$HOME/.cargo/bin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH=~/.nvm/versions/node/v10.15.0/bin:$PATH
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias vimconf="vim ~/.vimrc"
-export NVM_DIR="/Users/danny/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
-
-# autoload -U add-zsh-hook
-# load-nvmrc() {
-#   local node_version="$(nvm version)"
-#   local nvmrc_path="$(nvm_find_nvmrc)"
-#
-#   if [ -n "$nvmrc_path" ]; then
-#     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-#
-#     if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
-#       nvm install
-#     fi
-#   elif [ "$node_version" != "$(nvm version default)" ]; then
-#     echo "Reverting to nvm default version"
-#     nvm use default
-#   fi
-# }
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
 
 unsetopt share_history
 
-source $HOME/zsh-histdb/sqlite-history.zsh
-source $HOME/zsh-histdb/history-timer.zsh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 
-autoload -Uz add-zsh-hook
-add-zsh-hook preexec _start_timer
-add-zsh-hook precmd _stop_timer
-
+# load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,Library}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="cd ~; bfs -type d -nohidden | sed 's~^\.~$HOME~'"
-# openinvim () {
-#     local f="$(__fsel)" # get a file from fzf/ripgrep
-#     f="$(echo $f | xargs)" # trim whitespace
-#     if [[ -z "$f" ]]; then # if file is empty (cancelled)
-#         zle redisplay
-#         return 0
-#     fi
-#     </dev/tty vim "$f" # tty hack to get vim to work
-#     zle redisplay
-# }
-# zle -N openinvim
-#bind -x '"\c-p": vim $(fzf);'
-#bindkey -e "^p" "vim $(fzf);"
-#bindkey "^p" openinvim
-
-# This is the same functionality as fzf's ctrl-t, except that the file or
-# directory selected is now automatically cd'ed or opened, respectively.
 
 fzf-open-file-or-dir() {
   # local cmd="command find -L . \
@@ -156,9 +89,47 @@ fzf-open-file-or-dir() {
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
 
+
+export PLAYGROUND="$HOME/playground"
+export DAVIS="$PLAYGROUND/davis"
+
+alias cds="cd $DAVIS/singularity/"
+alias ld="lazydocker"
+alias mav="maverick"
+alias mavu="maverick -u"
+alias mavd="maverick -d"
+alias mavr="maverick -R"
+alias did="echo >> ~/did.txt && date >> ~/did.txt && vim -c 'startinsert' +'normal Go' ~/did.txt"
+alias sshlogin="ssh-add ~/.ssh/bitbucket ~/.ssh/vortex ~/.ssh/github"
+alias vortex="autossh -M 0 vortex -t tmux a"
+alias tunnel="autossh -M 0 -D 42443 -q -C -N vortex"
+alias lcbo="lerna clean -y && lerna bootstrap"
+
+eval "$(rbenv init -)"
+
+bindkey -v
+
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+export KEYTIMEOUT=1
+
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /Users/daniel.dyla/playground/davis/davis-custom-interaction-examples/lambda/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/daniel.dyla/playground/davis/davis-custom-interaction-examples/lambda/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/danny/playground/davis/poller/node_modules/tabtab/.completions/sls.zsh
+[[ -f /Users/daniel.dyla/playground/davis/davis-custom-interaction-examples/lambda/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/daniel.dyla/playground/davis/davis-custom-interaction-examples/lambda/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/daniel.dyla/playground/davis/davis-custom-interaction-examples/lambda/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/daniel.dyla/playground/davis/davis-custom-interaction-examples/lambda/node_modules/tabtab/.completions/slss.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/daniel.dyla/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/daniel.dyla/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/daniel.dyla/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/daniel.dyla/google-cloud-sdk/completion.zsh.inc'; fi

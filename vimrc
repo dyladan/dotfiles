@@ -59,11 +59,15 @@ set expandtab autoindent tabstop=4 shiftwidth=4 softtabstop=4
 
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2
 autocmd FileType typescript setlocal ts=2 sw=2 sts=2
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 autocmd FileType json setlocal ts=2 sw=2 sts=2
 autocmd FileType python setlocal ts=4 sw=4 sts=4
 autocmd FileType markdown setlocal ts=2 sw=2 sts=2
 autocmd FileType yaml setlocal ts=2 sw=2 sts=2
 autocmd FileType make setlocal noexpandtab
+
+" Prettier on save
+autocmd BufWritePre *.ts Neoformat
 
 " set markdown syntax for *.md files
 autocmd BufNewFile,BufRead *.md set filetype=markdown
@@ -87,18 +91,18 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'npx eslint @%'
 
 function! s:auto_goyo()
-  if &ft == 'markdown'
-    Goyo 80
-  else
-    let bufnr = bufnr('%')
-    Goyo!
-    execute 'b '.bufnr
-  endif
+    if &ft == 'markdown'
+        Goyo 80
+    else
+        let bufnr = bufnr('%')
+        Goyo!
+        execute 'b '.bufnr
+    endif
 endfunction
 
 augroup goyo_markdown
-  autocmd!
-  autocmd BufNewFile,BufRead * call s:auto_goyo()
+    autocmd!
+    autocmd BufNewFile,BufRead * call s:auto_goyo()
 augroup END
 
 " list makes whitespace characters visible
@@ -149,11 +153,11 @@ nnoremap ; :
 syntax on
 
 if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 if executable('rg')
@@ -182,15 +186,19 @@ endif
 set wildmenu
 
 set wildignore+=*/node_modules   " ignores node_modules
+set wildignore+=*/dist   " ignores distribution
+set wildignore+=*/web-ui   " ignores distribution
 set wildignore+=*/coverage   " ignores node_modules
 set wildignore+=**/*.app/**/*   " ignores node_modules
 
 " hilight lines longer than 100
-highlight OverLength ctermbg=black ctermfg=white guibg=#592929asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsdfasdfsdfasdisdi
+highlight OverLength ctermbg=black ctermfg=white guibg=#592929
 match OverLength /\%101v.\+/
+
 
 call plug#begin()
 
+Plug 'sbdchd/neoformat'
 Plug 'wincent/command-t'
 Plug 'tpope/vim-surround'
 Plug 'moll/vim-node'
@@ -202,5 +210,8 @@ Plug 'leafgarland/typescript-vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-syntastic/syntastic'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 call plug#end()
